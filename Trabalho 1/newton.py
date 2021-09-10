@@ -10,6 +10,12 @@ def main():
 
     maxiter = input("Insira um valor para o MAXITER que você deseja:\n")
 
+    listak = list()
+    listaxk = list()
+    listafxk = list()
+    listadxk = list()
+    listaerro = list()
+
     #* INTERVALO [-1, 0]
 
     k = 0 # começando com k igual a 0 e incrementando a cada iteração
@@ -17,41 +23,44 @@ def main():
     xr = 0. # xr, sendo r = k - 1 
     raiz = -pow(3, 0.5)/3.
 
-    # cabeçalho do arquivo texto
-    arquivo.write("No intervalo [-1, 0]\n")
-    arquivo.write("\tk\t\t     xk\t\t\t\t   f(xk)\t\t\t\t   f'(xk)\t\t\t\t   erro\n")
+    listak.append(k)
+    listaxk.append(xk)
+    listafxk.append(funcao(xk))
+    listadxk.append(derivada(xk))
+    listaerro.append(abs(xk - raiz))
 
     # enquanto não for alcançada a precisão desejada e
     # k for menor que a maxiter o loop acontece
     while(abs(xk - xr) > 0.000001 and k <= int(maxiter)): 
-        k, xk, xr, arquivo = metNewton(k, xk, xr, arquivo, raiz)                          
+        k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro= metNewton(k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro, raiz)                          
 
-    arquivo.write("\t" + str(k) + "\t")
-    arquivo.write(str(xk) + "\t")
-    arquivo.write(str(funcao(xk)) + "\t")
-    arquivo.write(str(derivada(xk)) + "\t")
-    arquivo.write(str(abs(float(xk) - raiz)) + "\n")
+    formatar_arquivo(arquivo, listak, listaxk, listafxk, listadxk, listaerro, "[-1,0]")
 
     #* INTERVALO [0, 1]
 
+    del listak[:]
+    del listaxk[:]
+    del listafxk[:]
+    del listadxk[:]
+    del listaerro[:]
+
     k = 0 # começando com k igual a 0 e incrementando a cada iteração
-    xk = 0. # tendo o primeiro intervalo de [-1, 0] e estabelecendo xk = -1 e xr = 0
-    xr = 1. # xr, sendo r = k - 1 
+    xk = 1. # tendo o primeiro intervalo de [-1, 0] e estabelecendo xk = -1 e xr = 0
+    xr = 0. # xr, sendo r = k - 1 
     raiz = pow(3, 0.5)/3.
 
-    arquivo.write("\n\nNo intervalo [0,1]\n")
-    arquivo.write("\tk\t\t     xk\t\t\t\t   f(xk)\t\t\t\t   f'(xk)\t\t\t\t   erro\n")
+    listak.append(k)
+    listaxk.append(xk)
+    listafxk.append(funcao(xk))
+    listadxk.append(derivada(xk))
+    listaerro.append(abs(xk - raiz))
 
     # enquanto não for alcançada a precisão desejada e 
     # k for menor que a maxiter o loop acontece
     while(abs(xk - xr) > 0.000001 and k <= int(maxiter)): 
-        k, xk, xr, arquivo = metNewton(k, xk, xr, arquivo, raiz)                          
+        k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro= metNewton(k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro, raiz)                          
 
-    arquivo.write("\t" + str(k) + "\t")
-    arquivo.write(str(xk) + "\t")
-    arquivo.write(str(funcao(xk)) + "\t")
-    arquivo.write(str(derivada(xk)) + "\t")
-    arquivo.write(str(abs(float(xk) - raiz)) + "\n")
+    formatar_arquivo(arquivo, listak, listaxk, listafxk, listadxk, listaerro, "[-1,0]")
 
     arquivo.close()
 
@@ -63,32 +72,47 @@ def derivada(x): # define a derivada da função que queremos aplicar o método 
     dx = 15*pow(x, 4) - 36*pow(x, 3) + 6*pow(x, 2) - 12*x -1 
     return dx # retorna o resultado da derivada da função 
 
-def metNewton(k, xk, xr, arquivo, raiz):
-    print(k)
+def metNewton(k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro, raiz):
+
     fx = funcao(xk)
     dx = derivada(xk)
-
-    if xk == 0.0 and fx == 3.0 or xk == -1.0 and fx == -16.0:
-        arquivo.write("\t" + str(k) + "\t")
-        arquivo.write(str(xk) + "000000000000000" + "\t")
-        arquivo.write(str(fx) + "000000000000000" + "\t")
-        arquivo.write(str(dx) + "000000000000000" + "\t")
-        arquivo.write(str(abs(float(xk) - raiz)) + "\n")
-    else:
-        arquivo.write("\t" + str(k) + "\t")
-        arquivo.write(str(xk) + "\t")
-        arquivo.write(str(fx) + "\t")
-        arquivo.write(str(dx) + "\t")
-        arquivo.write(str(abs( - raiz)) + "\n")
-
+    
     xr = xk # xr = x(k-1)
-    xk = xk - (fx/dx)
-    erro = abs(xk - xr)
+    xk = xr - (fx/dx)
 
     k += 1
 
-    return k, xk, xr, arquivo
+    listak.append(k)
+    listaxk.append(xk)
+    listafxk.append(funcao(xk))
+    listadxk.append(derivada(xk))
+    listaerro.append(abs(xk - raiz))
+
+    return k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro
+
+def formatar_arquivo(arquivo, listak, listaxk, listafxk, listadxk, listaerro, intervalo):
+
+    arquivo.write(f"\nNo intervalo {intervalo}\n")
+    arquivo.write("\tk\t     xk\t\t\t\t   f(xk)\t\t\t\t   erro\n")
+
+    for k in listak:
+        xk = listaxk[k]
+        fxk = listafxk[k]
+        dxk = listadxk[k]
+        erro = listaerro[k]
+                
+        if xk == 0.0 and fxk == 3.0 or xk == -1.0 and fxk == -16.0:
+            arquivo.write("\t" + str(k) + "\t")
+            arquivo.write(str(xk) + "000000000000000" + "\t")
+            arquivo.write(str(fxk) + "000000000000000" + "\t")
+            arquivo.write(str(dxk) + "\t")
+            arquivo.write(str(erro) + "\n")
+        else:
+            arquivo.write("\t" + str(k) + "\t")
+            arquivo.write(str(xk) + "\t")
+            arquivo.write(str(fxk) + "\t")
+            arquivo.write(str(dxk) + "\t")
+            arquivo.write(str(erro) + "\n")
 
 if __name__ == "__main__": # definição da função main
     main()
-
