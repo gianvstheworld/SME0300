@@ -73,7 +73,7 @@ def main():
         k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro= metNewton(k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro, raiz)                          
 
     # formata o arquivo de texto
-    formatar_arquivo(arquivo, listak, listaxk, listafxk, listadxk, listaerro, "[-1,0]")
+    formatar_arquivo(arquivo, listak, listaxk, listafxk, listadxk, listaerro, "[0,1]")
 
     # fecha o arquivo de texto
     arquivo.close()
