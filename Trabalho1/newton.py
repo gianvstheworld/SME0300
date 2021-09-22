@@ -74,13 +74,13 @@ def derivada(x): # define a derivada da função que queremos aplicar o método 
 
 def metNewton(k, xk, xr, listak, listaxk, listafxk, listadxk, listaerro, raiz):
 
-    fx = funcao(xk)
-    dx = derivada(xk)
+    fx = funcao(xk) # fx atribui o valor da função especificada no método no ponto xk
+    dx = derivada(xk) # dx atribui o valor da função especificada no método no ponto xk
     
     xr = xk # xr = x(k-1)
-    xk = xr - (fx/dx)
+    xk = xr - (fx/dx) # aplicação do método de newton, ou seja, essa é basicamente a função psi
 
-    k += 1
+    k += 1 # adiciona 1 a k a cada iteração
 
     listak.append(k)
     listaxk.append(xk)

@@ -1,4 +1,4 @@
-MÃ©todo das Secantes:
+Método das Secantes:
 
 No intervalo [-1,0]
 	k	     xk				   f(xk)				   erro
