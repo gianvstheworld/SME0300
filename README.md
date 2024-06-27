@@ -1,8 +1,8 @@
 # **Calculo numérico** / **Numerical Analysis**
 
-Compilado de programas, anotações e atividades da disciplina de Cálculo Numérico (sme0300) oferecida pelo ICMC-USP. Todos os programas desenvolvidos na disciplina foram feitos em linguagem python e possuem apenas fins educacionais.
+Compilado de programas, anotações e atividades da disciplina de Cálculo Numérico (SME0300) oferecida pelo ICMC-USP. Todos os programas desenvolvidos na disciplina foram feitos em linguagem python e possuem apenas fins educacionais.
 
-Compiled of syllabuses, notes and activities from the Numerical Analysis discipline (sme0300) offered by ICMC-USP. All programs developed in the discipline were written in python language and have educational purposes only.
+Compiled of syllabuses, notes and activities from the Numerical Analysis discipline (SME0300) offered by ICMC-USP. All programs developed in the discipline were written in python language and have educational purposes only.
 
 ## A disciplina/ The discipline
 
